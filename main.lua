@@ -14,7 +14,12 @@ local Player = Players.LocalPlayer
 local scriptToRun = SettingsPlace[PlaceId] or SettingsGame[GameId]
 
 if scriptToRun then
-    loadstring(scriptToRun)()
+    local success, err = pcall(function()
+        loadstring(scriptToRun)()
+    end)
+    if not success then
+        warn("Script error:", err)
+    end
 else
     Player:Kick("This script isn't supported yet")
 end
